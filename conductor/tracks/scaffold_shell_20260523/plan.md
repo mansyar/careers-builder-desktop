@@ -86,17 +86,17 @@
 
 ## Phase E: Testing & Verification
 
-- [x] Task: Write comprehensive component tests [ab02c07]
+- [x] Task: Write comprehensive component tests [f519570]
   - [x] Test all navigation components
   - [x] Test modal open/close behavior
   - [x] Test responsive sidebar collapse/expand
   - [x] Verify >80% coverage for new components
-- [ ] Task: Write E2E test for app launch
-  - [ ] Configure Playwright with Electron launcher
-  - [ ] Test: App launches and window appears with correct title
-  - [ ] Test: Sidebar navigation items are visible
-- [ ] Task: Verify full test suite passes
-  - [ ] Run `pnpm test` — all unit/integration tests pass
-  - [ ] Run E2E tests — verify app launch and basic navigation
-  - [ ] Check coverage thresholds are met
-- [ ] Task: Conductor - User Manual Verification 'Phase E: Testing & Verification' (Protocol in workflow.md)
+- [x] Task: Write E2E test for app launch [f519570]
+  - [x] Configure Playwright with Electron launcher
+  - [x] Test: App launches and window appears with correct title
+  - [x] Test: Sidebar navigation items are visible
+- [x] Task: Verify full test suite passes [f519570]
+  - [x] Run `pnpm test` — all unit/integration tests pass
+  - [x] Run E2E tests — verify app launch and basic navigation
+  - [x] Check coverage thresholds are met
+- [~] Task: Conductor - User Manual Verification 'Phase E: Testing & Verification' (Protocol in workflow.md)
