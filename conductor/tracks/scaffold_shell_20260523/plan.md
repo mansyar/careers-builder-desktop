@@ -7,11 +7,11 @@
     - [ ] Update package.json with correct project name, version, and description
     - [ ] Configure TypeScript strict mode in tsconfig files (main, preload, renderer)
     - [ ] Install pnpm v10+ if not present
-- [ ] Task: Configure Tailwind CSS v4
-    - [ ] Install tailwindcss v4 and @tailwindcss/vite
-    - [ ] Add Tailwind to Vite config
-    - [ ] Create CSS entry file with Tailwind directives
-    - [ ] Verify Tailwind classes render in sample component
+- [x] Task: Configure Tailwind CSS v4
+    - [x] Install tailwindcss v4 and @tailwindcss/vite
+    - [x] Add Tailwind to Vite config
+    - [x] Create CSS entry file with Tailwind directives
+    - [x] Verify Tailwind classes render in sample component
 - [ ] Task: Set up ESLint + Prettier + Husky + lint-staged
     - [ ] Install and configure ESLint with TypeScript rules
     - [ ] Install and configure Prettier
