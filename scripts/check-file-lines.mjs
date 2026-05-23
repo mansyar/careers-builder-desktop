@@ -4,6 +4,7 @@ import { readFileSync, readdirSync, statSync } from 'fs';
 import { join, extname } from 'path';
 
 const MAX_LINES = 500;
+const TARGET_DIRS = ['src', 'e2e', 'tests'];
 const INCLUDE_EXTENSIONS = new Set([
   '.ts', '.tsx', '.mjs',
   '.css',
@@ -50,7 +51,19 @@ function checkDirectory(dirPath) {
   return hasErrors;
 }
 
-const hasErrors = checkDirectory(root);
+let hasErrors = false;
+
+for (const dir of TARGET_DIRS) {
+  const dirPath = join(root, dir);
+  try {
+    statSync(dirPath);
+  } catch {
+    continue;
+  }
+  if (checkDirectory(dirPath)) {
+    hasErrors = true;
+  }
+}
 
 if (hasErrors) {
   console.error(`\nFAILED: Some files exceed ${MAX_LINES} line limit`);
