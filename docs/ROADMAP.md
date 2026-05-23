@@ -5,6 +5,7 @@
 **Stack:** Electron + Vite + React 19 + TypeScript + Tailwind CSS v4 + better-sqlite3 + sqlite-vec + @xenova/transformers + Vercel AI SDK
 
 **Reference Documents:**
+
 - `docs/PRD.md` — Product requirements
 - `docs/TDD.md` — Technical design, IPC channels, database schema
 - `docs/SCREENS.md` — Wireframes for every screen and state
@@ -22,14 +23,21 @@ pnpm dev
 
 # Run tests
 pnpm test              # Unit + integration (Vitest)
+pnpm test:coverage     # Unit tests with coverage report (80% threshold enforced)
 pnpm test:e2e          # E2E (Playwright + Electron)
+pnpm check:full        # Typecheck + coverage + E2E (for CI / pre-push)
 
 # Build for production
 pnpm build             # Production build
-pnpm package           # Package into installer (.exe / .dmg / .AppImage)
 
-# Type checking
-pnpm typecheck
+# Quality checks
+pnpm typecheck         # TypeScript strict type checking
+pnpm check:lines       # Checks no source file exceeds 500 lines
+pnpm lint              # ESLint across source files
+
+# Package into installer
+pnpm pack              # Package into directory
+pnpm dist              # Package into installer (.exe / .dmg / .AppImage)
 ```
 
 ---
@@ -38,39 +46,56 @@ pnpm typecheck
 
 **Goal:** Launch the app, see the window, navigate between pages.
 
-### What gets built
+### What was built
 
 #### Project Setup
-- [ ] Initialize electron-vite project with React 19 + TypeScript strict mode
-- [ ] Configure Tailwind CSS v4
-- [ ] Set up Electron main/renderer/preload process structure
-- [ ] Configure electron-builder for cross-platform packaging (Windows NSIS, macOS dmg, Linux AppImage)
-- [ ] Set up Vitest + @vitest/coverage-v8
-- [ ] Set up ESLint + Prettier + Husky + lint-staged
-- [ ] Create `.gitignore`, `tsconfig.json` for each process
+
+- [x] Initialize electron-vite project with React 19 + TypeScript strict mode
+- [x] Configure Tailwind CSS v4
+- [x] Set up Electron main/renderer/preload process structure
+- [x] Configure electron-builder for cross-platform packaging (Windows NSIS, macOS dmg, Linux AppImage)
+- [x] Set up Vitest + @vitest/coverage-v8 (80% coverage threshold)
+- [x] Set up ESLint + Prettier + Husky + lint-staged
+- [x] Create `.gitignore`, `tsconfig.json` for each process
+- [x] File line limit check (500 lines max, runs on pre-commit)
+- [x] Pre-push hook: typecheck + coverage threshold + E2E tests
 
 #### Electron Shell
-- [ ] Main process: create `BrowserWindow` (default size, min size, title)
-- [ ] Preload script: empty `contextBridge.exposeInMainWorld('electronAPI', {})` shell
-- [ ] Renderer: mount React app, apply Tailwind base styles
-- [ ] Security: enable `contextIsolation`, disable `nodeIntegration`, enable `sandbox`
-- [ ] Content Security Policy header
+
+- [x] Main process: `BrowserWindow` (1200×800 default, 900×600 min)
+- [x] Preload script: `contextBridge.exposeInMainWorld('electronAPI', {})`
+- [x] Renderer: mount React app via `RouterProvider`, Tailwind base styles
+- [x] Security: `contextIsolation: true`, `nodeIntegration: false`, `sandbox: true`
+- [x] Strict Content Security Policy header in `index.html`
 
 #### Navigation (React Router v7)
-- [ ] Three routes: `/` (Home), `/cv-builder` (CV Builder), `/job-search` (Job Search)
-- [ ] Persistent sidebar component with navigation links (Home, CV Builder, Job Search, Settings)
-- [ ] Active route highlighting
-- [ ] Responsive sidebar: collapses to hamburger toggle on viewports < 768px with slide animation + backdrop overlay
-- [ ] Placeholder page content for each route
+
+- [x] Three routes: `/` (Home), `/cv-builder` (CV Builder), `/job-search` (Job Search)
+- [x] Persistent sidebar with links: Home, CV Builder, Job Search, Settings
+- [x] Active route highlighting (`NavLink` with `isActive` class)
+- [x] Responsive: collapses to hamburger < 768px with slide animation + backdrop
+- [x] Placeholder page content for each route
 
 #### Settings Modal Shell
-- [ ] Settings button in sidebar
-- [ ] Dismissable modal component (will be populated in Phase 2)
+
+- [x] Settings button in sidebar (gear icon, opens modal)
+- [x] Dismissable modal component with:
+  - Close button (X)
+  - Click-outside-to-dismiss (backdrop overlay)
+  - Keyboard Escape key to dismiss
+  - Tailwind CSS v4 styling (rounded corners, shadow, backdrop)
 
 #### Testing
-- [ ] Write first Vitest test (e.g., sidebar renders)
-- [ ] Verify test suite runs with `pnpm test`
-- [ ] E2E: App launches, window appears with correct title
+
+- [x] **14 unit tests** across 3 test files:
+  - `pages.test.tsx` — renders all 3 page placeholders
+  - `sidebar.test.tsx` — navigation links, active highlighting, Settings button, hamburger toggle
+  - `modal.test.tsx` — open/close, X button, Escape key, backdrop click
+- [x] **3 E2E tests** via Playwright + Electron:
+  - App launches with correct title
+  - Window has expected default size (1200×800, tolerance 1px)
+  - Sidebar navigation items are visible
+- [x] Coverage: **80.9%** overall (Modal: 100%, Sidebar: 100%, Pages: 100%)
 
 ### Verification
 
@@ -86,15 +111,18 @@ User can:
 
 ### Key decisions for AI agent
 
-| Concern | Decision |
-|---------|----------|
-| Window size | Default 1200×800, min 900×600 |
-| Title | "Careers Builder" |
-| Main process entry | `src/main/index.ts` |
-| Preload entry | `src/preload/index.ts` |
-| Renderer entry | `src/renderer/index.tsx` |
-| Router | React Router v7, `createBrowserRouter` |
-| Package manager | pnpm v10+ |
+| Concern            | Decision                                                                            |
+| ------------------ | ----------------------------------------------------------------------------------- |
+| Window size        | Default 1200×800, min 900×600                                                       |
+| Title              | "Careers Builder"                                                                   |
+| Main process entry | `src/main/index.ts`                                                                 |
+| Preload entry      | `src/preload/index.ts`                                                              |
+| Renderer entry     | `src/renderer/index.tsx`                                                            |
+| Router             | React Router v7, `createHashRouter` (hash routing for Electron `file://` protocol)  |
+| Package manager    | pnpm v10+                                                                           |
+| Test runner        | Vitest + @testing-library/react (jsdom)                                             |
+| E2E framework      | Playwright + Electron (`_electron.launch()`)                                        |
+| Quality gates      | Pre-commit: file line check → lint-staged. Pre-push: typecheck → 80% coverage → E2E |
 
 ---
 
@@ -105,6 +133,7 @@ User can:
 ### What gets built
 
 #### Database (Main Process)
+
 - [ ] Install better-sqlite3 + sqlite-vec + @xenova/transformers (model downloads later)
 - [ ] DatabaseManager singleton — configurable path, `:memory:` support for tests
 - [ ] Migration system: idempotent DDL (`IF NOT EXISTS`) for all tables:
@@ -114,6 +143,7 @@ User can:
 - [ ] Debug IPC channel: `debug:db-query` (test-only, SELECT only)
 
 #### Provider Settings
+
 - [ ] IPC channel: `settings:load` — load saved provider config
 - [ ] IPC channel: `settings:save` — save provider config (encrypt API key with AES-256-GCM)
 - [ ] IPC channel: `settings:test` — test connection via `GET {baseUrl}/models` (accepts optional `{ apiKey?, baseUrl? }` for unsaved credentials)
@@ -132,6 +162,7 @@ User can:
 - [ ] Default provider: `https://api.openai.com/v1`, model `gpt-4o`
 
 #### CV Profile & Manual Editor
+
 - [ ] IPC channel: `cv:create` — create CV profile + first empty version
 - [ ] IPC channel: `cv:list-versions` — list versions for a profile
 - [ ] IPC channel: `cv:get-version` — get single version with `full_cv_json`
@@ -149,6 +180,7 @@ User can:
 - [ ] Loading state: skeleton shimmer while data loads
 
 #### Testing
+
 - [ ] Unit tests: DB helpers, migration system, encryption, deep merge utility
 - [ ] Integration tests: create profile → update version → get version → copy-on-write immutability
 - [ ] Integration tests: settings save/load/test with mock LLM
@@ -173,13 +205,13 @@ User can:
 
 ### Key decisions for AI agent
 
-| Concern | Decision |
-|---------|----------|
-| DB path (dev) | `./vault_data/local_vault.db` |
-| DB path (production) | OS app data dir (see TDD §9) |
-| Secret file | `{data_dir}/.secret` (64 random bytes, created on first run) |
-| CV profile ID storage | `localStorage` in renderer |
-| Version label | User-provided on save, or auto-generated "Version N" |
+| Concern               | Decision                                                     |
+| --------------------- | ------------------------------------------------------------ |
+| DB path (dev)         | `./vault_data/local_vault.db`                                |
+| DB path (production)  | OS app data dir (see TDD §9)                                 |
+| Secret file           | `{data_dir}/.secret` (64 random bytes, created on first run) |
+| CV profile ID storage | `localStorage` in renderer                                   |
+| Version label         | User-provided on save, or auto-generated "Version N"         |
 
 ---
 
@@ -190,6 +222,7 @@ User can:
 ### What gets built
 
 #### LLM Integration
+
 - [ ] Install Vercel AI SDK (`ai` v6, `@ai-sdk/openai` v3, `@ai-sdk/react`)
 - [ ] IPC channel: `chat:stream` — streaming chat via `streamText()`
   - Load provider settings from DB, construct OpenAI-compatible client
@@ -201,6 +234,7 @@ User can:
   - Return parsed + persisted result
 
 #### Chat UI
+
 - [ ] Chat panel component (left side of split view on wide, top on narrow):
   - Scrollable message list (AI left-aligned, user right-aligned)
   - Streaming cursor animation during AI response
@@ -217,6 +251,7 @@ User can:
   - Success → form populates + AI moves to next section
 
 #### Interview Flow
+
 - [ ] Section order: Contact → Executive Summary → Experience → Education → Skills → Projects
 - [ ] System prompt: executive resume writer, guide section by section, one question at a time
 - [ ] Returning user flow: AI checks form state, identifies first incomplete section, starts there
@@ -225,6 +260,7 @@ User can:
 - [ ] All sections complete → chat shows "Your CV is complete!" with action buttons
 
 #### Split Layout (CV Builder Edit Tab)
+
 - [ ] Tab bar: `[ ✏️ Edit ]` | `[ 🎨 Preview ]` (Preview tab built in Phase 4)
 - [ ] Edit tab: chat panel (left, 2/5 width) + CV form (right, 3/5 width)
 - [ ] On narrow viewports: chat on top, form below (stacked)
@@ -233,12 +269,14 @@ User can:
 - [ ] Chat does NOT persist — only CV data survives session restarts
 
 #### No-Chat Persistence Rule
+
 - [ ] Navigating away from CV Builder discards chat history
 - [ ] Returning starts a new chat session
 - [ ] AI detects completed sections from form state
 - [ ] Rationale: "the form is your source of truth"
 
 #### Testing
+
 - [ ] Unit tests: chat handler — valid streaming, missing API key (400), LLM unreachable (502)
 - [ ] Integration tests: chat:extract with each section schema
 - [ ] Component tests: ChatPanel — empty state, messages, streaming, input, error retry, missing provider, extract button
@@ -263,14 +301,14 @@ User can:
 
 ### Key decisions for AI agent
 
-| Concern | Decision |
-|---------|----------|
-| Chat persistence | None — only CV data persists |
-| Extraction trigger | User clicks "Done — extract this section" |
-| Extraction method | `generateObject()` with per-section Zod schema |
-| Error retry | Exponential backoff, max 3 attempts |
-| LLM adapter | `@ai-sdk/openai` (any OpenAI-compatible endpoint) |
-| System prompt | "Executive resume writer, section by section, one question at a time" |
+| Concern            | Decision                                                              |
+| ------------------ | --------------------------------------------------------------------- |
+| Chat persistence   | None — only CV data persists                                          |
+| Extraction trigger | User clicks "Done — extract this section"                             |
+| Extraction method  | `generateObject()` with per-section Zod schema                        |
+| Error retry        | Exponential backoff, max 3 attempts                                   |
+| LLM adapter        | `@ai-sdk/openai` (any OpenAI-compatible endpoint)                     |
+| System prompt      | "Executive resume writer, section by section, one question at a time" |
 
 ---
 
@@ -281,6 +319,7 @@ User can:
 ### What gets built
 
 #### Template Rendering
+
 - [ ] IPC channel: `cv:preview` — render template to HTML string via `renderToString`
   - Load CV data from DB by version ID
   - Inject CV JSON as props into the template React component
@@ -294,6 +333,7 @@ User can:
 - [ ] Each template renders: name, contact, summary, experience, education, skills, projects
 
 #### Preview Tab
+
 - [ ] Preview tab in CV Builder: `[ Edit ] [ 🎨 Preview ]`
 - [ ] Template selector dropdown (3 templates)
 - [ ] Live preview: switch template → re-renders instantly (< 500ms)
@@ -302,6 +342,7 @@ User can:
 - [ ] "Preview your CV" button in Edit tab after interview completes
 
 #### PDF Export
+
 - [ ] IPC channel: `cv:export-pdf` — generate PDF via `BrowserWindow.webContents.printToPDF()`
   - Render template to HTML (same as preview)
   - Create hidden `BrowserWindow`, load HTML via `data:` URI
@@ -312,6 +353,7 @@ User can:
 - [ ] Error handling: retry button if PDF fails
 
 #### Testing
+
 - [ ] Unit tests: template rendering (each template with sample data)
 - [ ] Integration tests: PDF output has expected text content and page count (via `pdf-parse`)
 - [ ] E2E: complete CV → preview each template → switch instantly → export PDF → verify file saved
@@ -333,13 +375,13 @@ User can:
 
 ### Key decisions for AI agent
 
-| Concern | Decision |
-|---------|----------|
-| PDF engine | `BrowserWindow.webContents.printToPDF()` |
-| HTML delivery | `data:text/html;charset=utf-8,...` URI |
-| Paper sizes | A4 (210×297mm), Letter (216×279mm) |
+| Concern       | Decision                                                        |
+| ------------- | --------------------------------------------------------------- |
+| PDF engine    | `BrowserWindow.webContents.printToPDF()`                        |
+| HTML delivery | `data:text/html;charset=utf-8,...` URI                          |
+| Paper sizes   | A4 (210×297mm), Letter (216×279mm)                              |
 | Templates are | React components, rendered via `renderToString` in main process |
-| No Playwright | Electron's built-in Chromium handles everything |
+| No Playwright | Electron's built-in Chromium handles everything                 |
 
 ---
 
@@ -350,6 +392,7 @@ User can:
 ### What gets built
 
 #### Local Embeddings (Main Process)
+
 - [ ] Initialize `@xenova/transformers` pipeline with `all-MiniLM-L6-v2` (singleton)
 - [ ] On first use: download model from Hugging Face (~90 MB), cache at `{data_dir}/models/`
 - [ ] Graceful degradation: if download fails, embedding features show unavailable state
@@ -357,6 +400,7 @@ User can:
 - [ ] Job embedding: embed `description_raw` → 384-dim vector → store in `vec_job_postings` (max 3 concurrent via `p-limit`)
 
 #### Web Scraping (Main Process)
+
 - [ ] Hidden `BrowserWindow` instances for scraping (one per source)
 - [ ] Evasion defaults: user-agent masking, request spacing (500ms between requests per source)
 - [ ] Per-source timeout: 30 seconds (configurable)
@@ -368,6 +412,7 @@ User can:
 - [ ] Rate-limit detection (HTTP 429) → skip source for remainder of sweep
 
 #### Job Search UI
+
 - [ ] IPC channel: `jobs:sweep` — start career sweep (background worker via `p-queue`)
 - [ ] IPC channel: `jobs:poll` — poll sweep progress and results
 - [ ] IPC channel: `jobs:last-sweep` — retrieve last sweep results (survives restarts)
@@ -375,6 +420,7 @@ User can:
 - [ ] IPC channel: `data:export-results` — export results as CSV or JSON
 
 #### Job Search Screens
+
 - [ ] **Empty state:** "You need a CV first. Create one to start matching jobs." with redirect button
 - [ ] **Initial state:** CV profile selector (dropdown of saved versions), source toggles (auto-selected based on CV), "Start Career Sweep" button
 - [ ] **Sweep in progress:** progress bars (found/embedded/matched), per-source status (✅🔄⏳❌), partial results as they come in, Cancel button
@@ -386,12 +432,14 @@ User can:
 - [ ] **Feedback re-sort:** clicking 👍/👎 instantly re-sorts results (liked up, disliked down) + stores for future sweeps
 
 #### Adjust CV Flow
+
 - [ ] "Adjust CV" button → opens CV Builder Edit tab
 - [ ] New chat session starts with AI prompt: "I analyzed your top matches. Missing skills: [list]. Do you have experience with any of these?"
 - [ ] User confirms → AI adds skills to Skills section and/or updates experience descriptions
 - [ ] Saves as new CV version
 
 #### Testing
+
 - [ ] Unit tests: embedding adapter, vector query builder
 - [ ] Integration tests: scraping against static HTML fixtures (no live URLs)
 - [ ] Integration tests: full sweep flow — embed CV → scrape fixture → embed jobs → vector match → rank results
@@ -420,15 +468,15 @@ User can:
 
 ### Key decisions for AI agent
 
-| Concern | Decision |
-|---------|----------|
-| Embedding model | `all-MiniLM-L6-v2` (384-dim) |
-| Max concurrent embeddings | 3 |
-| Vector engine | `sqlite-vec` `MATCH` (cosine distance) |
-| Result ranking | Strictly by match score (lower cosine distance = better) |
-| Feedback storage | Per job + per CV version, boolean liked/disliked |
-| Search & filter | Client-side, instant, on existing result set |
-| Sweep replaces old | Yes — new sweep replaces previous results |
+| Concern                   | Decision                                                 |
+| ------------------------- | -------------------------------------------------------- |
+| Embedding model           | `all-MiniLM-L6-v2` (384-dim)                             |
+| Max concurrent embeddings | 3                                                        |
+| Vector engine             | `sqlite-vec` `MATCH` (cosine distance)                   |
+| Result ranking            | Strictly by match score (lower cosine distance = better) |
+| Feedback storage          | Per job + per CV version, boolean liked/disliked         |
+| Search & filter           | Client-side, instant, on existing result set             |
+| Sweep replaces old        | Yes — new sweep replaces previous results                |
 
 ---
 
@@ -439,6 +487,7 @@ User can:
 ### What gets built
 
 #### Hybrid Home Screen
+
 - [ ] **First-time user:** Two CTA cards (Build Your CV / Search Jobs), Search Jobs shows "Create CV First" when no profile exists, tip to start with CV
 - [ ] **Returning user:**
   - Greeting with user's name (from CV)
@@ -449,6 +498,7 @@ User can:
 - [ ] Status bar at bottom: provider connection status (● green / ⚠ yellow / ❌ red dot) + app version
 
 #### Error States (All Screens)
+
 - [ ] Offline banner: "📡 You're offline. CV editing and PDF export still work."
 - [ ] Connection lost banner (chat): retry + open settings buttons
 - [ ] Missing provider banner (chat): "Set up your API key" + open settings button
@@ -456,11 +506,13 @@ User can:
 - [ ] Error toast: generic failure notification with retry/action button
 
 #### Settings Enhancements
+
 - [ ] Clear Job Cache: deletes all job postings, vectors, sweep history
 - [ ] Reset Job Feedback: clears all thumbs up/down history
 - [ ] Export All Data: exports entire database as JSON
 
 #### Final Integration & Testing
+
 - [ ] All IPC channels wired end-to-end
 - [ ] All error states connected and tested
 - [ ] Responsive design verified at all breakpoints
@@ -489,13 +541,13 @@ User can:
 
 ## Summary
 
-| Phase | Scope | Testable Outcome |
-|-------|-------|------------------|
-| **1. Scaffold + Shell** | electron-vite, sidebar, routing | Window opens, navigate between pages |
-| **2. Data + CV Editor** | DB, wizard, 6-section form, save/load | Configure provider, create CV manually |
-| **3. AI Chat Interview** | LLM streaming, extraction, form population | Chat with AI, extract sections into CV |
-| **4. Templates + PDF** | 3 templates, preview tab, PDF export | Preview templates, export PDF |
-| **5. Job Search** | Scraping, embeddings, matching, feedback, adjust | Sweep jobs, rank by match, give feedback |
-| **6. Home + Polish** | Dashboard, error states, settings, E2E | Complete polished experience |
+| Phase                    | Scope                                            | Testable Outcome                         |
+| ------------------------ | ------------------------------------------------ | ---------------------------------------- |
+| **1. Scaffold + Shell**  | electron-vite, sidebar, routing                  | Window opens, navigate between pages     |
+| **2. Data + CV Editor**  | DB, wizard, 6-section form, save/load            | Configure provider, create CV manually   |
+| **3. AI Chat Interview** | LLM streaming, extraction, form population       | Chat with AI, extract sections into CV   |
+| **4. Templates + PDF**   | 3 templates, preview tab, PDF export             | Preview templates, export PDF            |
+| **5. Job Search**        | Scraping, embeddings, matching, feedback, adjust | Sweep jobs, rank by match, give feedback |
+| **6. Home + Polish**     | Dashboard, error states, settings, E2E           | Complete polished experience             |
 
 Each phase depends on the previous one. Build in order, verify the testable outcome before moving on.
