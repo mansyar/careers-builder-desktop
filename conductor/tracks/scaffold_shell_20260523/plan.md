@@ -28,7 +28,7 @@
   - [x] Configure Windows (NSIS), macOS (dmg), Linux (AppImage) targets
 - [x] Task: Conductor - User Manual Verification 'Phase A: Project Setup & Configuration' (Protocol in workflow.md) [7a9680f]
 
-## Phase B: Electron Shell & Security
+## Phase B: Electron Shell & Security [checkpoint: 0d37ed4]
 
 - [x] Task: Create main process BrowserWindow [a0edf1d]
   - [x] Configure default size 1200×800, min size 900×600
@@ -46,7 +46,7 @@
   - [x] Disable nodeIntegration
   - [x] Enable sandbox mode
   - [x] Set strict Content Security Policy header
-- [~] Task: Conductor - User Manual Verification 'Phase B: Electron Shell & Security' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase B: Electron Shell & Security' (Protocol in workflow.md) [0d37ed4]
 
 ## Phase C: Navigation & Sidebar
 
