@@ -4,5 +4,5 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ---
 
-- [~] **Track: Phase 1: Project Scaffold + Electron Shell**
-  _Link: [./tracks/scaffold_shell_20260523/](./tracks/scaffold_shell_20260523/)_
+- [x] **Track: Phase 1: Project Scaffold + Electron Shell**
+      _Link: [./tracks/scaffold_shell_20260523/](./tracks/scaffold_shell_20260523/)_
