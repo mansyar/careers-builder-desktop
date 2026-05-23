@@ -50,27 +50,27 @@
 
 ## Phase C: Navigation & Sidebar
 
-- [ ] Task: Install and configure React Router v7
-  - [ ] Install react-router-dom
-  - [ ] Create router with `createBrowserRouter`
-  - [ ] Define three routes: `/` (Home), `/cv-builder` (CV Builder), `/job-search` (Job Search)
-- [ ] Task: Create persistent sidebar navigation component
-  - [ ] Build sidebar with navigation links: Home, CV Builder, Job Search, Settings
-  - [ ] Implement active route highlighting based on current route
-  - [ ] Style sidebar with Tailwind CSS v4
-- [ ] Task: Create placeholder page components for each route
-  - [ ] Create HomePage, CVBuilderPage, JobSearchPage placeholder components
-  - [ ] Each should display the route name as a heading
-- [ ] Task: Implement responsive sidebar (collapsible on mobile)
-  - [ ] Sidebar collapses to hamburger toggle on viewports < 768px
-  - [ ] Add slide animation with backdrop overlay for expanded state
-  - [ ] Ensure smooth transitions
-- [ ] Task: Write first Vitest test (sidebar renders correctly)
-  - [ ] Create test file for sidebar component
-  - [ ] Test that all navigation links render
-  - [ ] Test active route highlighting
-  - [ ] Verify test suite runs with `pnpm test`
-- [ ] Task: Conductor - User Manual Verification 'Phase C: Navigation & Sidebar' (Protocol in workflow.md)
+- [x] Task: Install and configure React Router v7 [a0edf1d]
+  - [x] Install react-router-dom
+  - [x] Create router with `createBrowserRouter`
+  - [x] Define three routes: `/` (Home), `/cv-builder` (CV Builder), `/job-search` (Job Search)
+- [x] Task: Create persistent sidebar navigation component [a0edf1d]
+  - [x] Build sidebar with navigation links: Home, CV Builder, Job Search, Settings
+  - [x] Implement active route highlighting based on current route
+  - [x] Style sidebar with Tailwind CSS v4
+- [x] Task: Create placeholder page components for each route [a0edf1d]
+  - [x] Create HomePage, CVBuilderPage, JobSearchPage placeholder components
+  - [x] Each should display the route name as a heading
+- [x] Task: Implement responsive sidebar (collapsible on mobile) [a0edf1d]
+  - [x] Sidebar collapses to hamburger toggle on viewports < 768px
+  - [x] Add slide animation with backdrop overlay for expanded state
+  - [x] Ensure smooth transitions
+- [x] Task: Write first Vitest test (sidebar renders correctly) [07f90ce]
+  - [x] Create test file for sidebar component
+  - [x] Test that all navigation links render
+  - [x] Test active route highlighting
+  - [x] Verify test suite runs with `pnpm test`
+- [~] Task: Conductor - User Manual Verification 'Phase C: Navigation & Sidebar' (Protocol in workflow.md)
 
 ## Phase D: Settings Modal Shell
 
