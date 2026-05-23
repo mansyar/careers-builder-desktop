@@ -17,10 +17,10 @@
   - [x] Install and configure Prettier
   - [x] Set up Husky for git hooks
   - [x] Configure lint-staged for pre-commit checks
-- [ ] Task: Set up Vitest + @vitest/coverage-v8
-  - [ ] Install Vitest and configure in vite config
-  - [ ] Set up coverage reporter
-  - [ ] Verify test runner works with `pnpm test`
+- [x] Task: Set up Vitest + @vitest/coverage-v8 [ecbc109]
+  - [x] Install Vitest and configure in vite config
+  - [x] Set up coverage reporter
+  - [x] Verify test runner works with `pnpm test`
 - [ ] Task: Create .gitignore with Electron-specific patterns
   - [ ] Add node_modules, dist, out, .env patterns
 - [ ] Task: Configure electron-builder for cross-platform packaging
