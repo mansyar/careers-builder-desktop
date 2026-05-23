@@ -48,7 +48,7 @@
   - [x] Set strict Content Security Policy header
 - [x] Task: Conductor - User Manual Verification 'Phase B: Electron Shell & Security' (Protocol in workflow.md) [0d37ed4]
 
-## Phase C: Navigation & Sidebar
+## Phase C: Navigation & Sidebar [checkpoint: 990a3a5]
 
 - [x] Task: Install and configure React Router v7 [a0edf1d]
   - [x] Install react-router-dom
@@ -70,7 +70,7 @@
   - [x] Test that all navigation links render
   - [x] Test active route highlighting
   - [x] Verify test suite runs with `pnpm test`
-- [~] Task: Conductor - User Manual Verification 'Phase C: Navigation & Sidebar' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase C: Navigation & Sidebar' (Protocol in workflow.md) [990a3a5]
 
 ## Phase D: Settings Modal Shell
 
