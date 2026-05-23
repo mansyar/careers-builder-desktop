@@ -84,7 +84,7 @@
   - [x] Style with Tailwind CSS v4
 - [x] Task: Conductor - User Manual Verification 'Phase D: Settings Modal Shell' (Protocol in workflow.md) [db4b65f]
 
-## Phase E: Testing & Verification
+## Phase E: Testing & Verification [checkpoint: c40a37f]
 
 - [x] Task: Write comprehensive component tests [f519570]
   - [x] Test all navigation components
@@ -99,4 +99,4 @@
   - [x] Run `pnpm test` — all unit/integration tests pass
   - [x] Run E2E tests — verify app launch and basic navigation
   - [x] Check coverage thresholds are met
-- [~] Task: Conductor - User Manual Verification 'Phase E: Testing & Verification' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase E: Testing & Verification' (Protocol in workflow.md) [c40a37f]
