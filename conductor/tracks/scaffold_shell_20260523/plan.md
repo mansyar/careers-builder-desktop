@@ -74,15 +74,15 @@
 
 ## Phase D: Settings Modal Shell
 
-- [~] Task: Add Settings button to sidebar
-  - [ ] Add Settings navigation item in sidebar
-  - [ ] Wire it to open a modal (separate from routing)
-- [~] Task: Create dismissable modal component
-  - [ ] Build reusable modal component with backdrop overlay
-  - [ ] Add close button (X) and click-outside-to-dismiss behavior
-  - [ ] Add keyboard Escape key to dismiss
-  - [ ] Style with Tailwind CSS v4
-- [ ] Task: Conductor - User Manual Verification 'Phase D: Settings Modal Shell' (Protocol in workflow.md)
+- [x] Task: Add Settings button to sidebar [273c086]
+  - [x] Add Settings navigation item in sidebar
+  - [x] Wire it to open a modal (separate from routing)
+- [x] Task: Create dismissable modal component [273c086]
+  - [x] Build reusable modal component with backdrop overlay
+  - [x] Add close button (X) and click-outside-to-dismiss behavior
+  - [x] Add keyboard Escape key to dismiss
+  - [x] Style with Tailwind CSS v4
+- [~] Task: Conductor - User Manual Verification 'Phase D: Settings Modal Shell' (Protocol in workflow.md)
 
 ## Phase E: Testing & Verification
 
