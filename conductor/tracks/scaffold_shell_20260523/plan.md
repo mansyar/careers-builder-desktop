@@ -21,12 +21,12 @@
   - [x] Install Vitest and configure in vite config
   - [x] Set up coverage reporter
   - [x] Verify test runner works with `pnpm test`
-- [ ] Task: Create .gitignore with Electron-specific patterns
-  - [ ] Add node_modules, dist, out, .env patterns
-- [ ] Task: Configure electron-builder for cross-platform packaging
-  - [ ] Add electron-builder config to package.json
-  - [ ] Configure Windows (NSIS), macOS (dmg), Linux (AppImage) targets
-- [ ] Task: Conductor - User Manual Verification 'Phase A: Project Setup & Configuration' (Protocol in workflow.md)
+- [x] Task: Create .gitignore with Electron-specific patterns [a0edf1d]
+  - [x] Add node_modules, dist, out, .env patterns
+- [x] Task: Configure electron-builder for cross-platform packaging [a0edf1d]
+  - [x] Add electron-builder config to package.json
+  - [x] Configure Windows (NSIS), macOS (dmg), Linux (AppImage) targets
+- [~] Task: Conductor - User Manual Verification 'Phase A: Project Setup & Configuration' (Protocol in workflow.md)
 
 ## Phase B: Electron Shell & Security
 
