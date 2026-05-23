@@ -1,0 +1,102 @@
+# Implementation Plan: Phase 1 — Project Scaffold + Electron Shell
+
+## Phase A: Project Setup & Configuration
+
+- [ ] Task: Initialize electron-vite project with React 19 + TypeScript strict mode
+    - [ ] Run pnpm create @quick-start/electron with React + TypeScript template
+    - [ ] Update package.json with correct project name, version, and description
+    - [ ] Configure TypeScript strict mode in tsconfig files (main, preload, renderer)
+    - [ ] Install pnpm v10+ if not present
+- [ ] Task: Configure Tailwind CSS v4
+    - [ ] Install tailwindcss v4 and @tailwindcss/vite
+    - [ ] Add Tailwind to Vite config
+    - [ ] Create CSS entry file with Tailwind directives
+    - [ ] Verify Tailwind classes render in sample component
+- [ ] Task: Set up ESLint + Prettier + Husky + lint-staged
+    - [ ] Install and configure ESLint with TypeScript rules
+    - [ ] Install and configure Prettier
+    - [ ] Set up Husky for git hooks
+    - [ ] Configure lint-staged for pre-commit checks
+- [ ] Task: Set up Vitest + @vitest/coverage-v8
+    - [ ] Install Vitest and configure in vite config
+    - [ ] Set up coverage reporter
+    - [ ] Verify test runner works with `pnpm test`
+- [ ] Task: Create .gitignore with Electron-specific patterns
+    - [ ] Add node_modules, dist, out, .env patterns
+- [ ] Task: Configure electron-builder for cross-platform packaging
+    - [ ] Add electron-builder config to package.json
+    - [ ] Configure Windows (NSIS), macOS (dmg), Linux (AppImage) targets
+- [ ] Task: Conductor - User Manual Verification 'Phase A: Project Setup & Configuration' (Protocol in workflow.md)
+
+## Phase B: Electron Shell & Security
+
+- [ ] Task: Create main process BrowserWindow
+    - [ ] Configure default size 1200×800, min size 900×600
+    - [ ] Set window title to "Careers Builder"
+    - [ ] Wire up dev load URL (Vite dev server) vs production file load
+- [ ] Task: Create preload script with empty contextBridge shell
+    - [ ] Set up `contextBridge.exposeInMainWorld('electronAPI', {})`
+    - [ ] Prepare typed window.electronAPI declarations
+- [ ] Task: Mount React app in renderer with Tailwind base styles
+    - [ ] Create renderer entry point (src/renderer/index.tsx)
+    - [ ] Mount React app into DOM
+    - [ ] Apply Tailwind preflight/base styles
+- [ ] Task: Enable Electron security best practices
+    - [ ] Enable contextIsolation
+    - [ ] Disable nodeIntegration
+    - [ ] Enable sandbox mode
+    - [ ] Set strict Content Security Policy header
+- [ ] Task: Conductor - User Manual Verification 'Phase B: Electron Shell & Security' (Protocol in workflow.md)
+
+## Phase C: Navigation & Sidebar
+
+- [ ] Task: Install and configure React Router v7
+    - [ ] Install react-router-dom
+    - [ ] Create router with `createBrowserRouter`
+    - [ ] Define three routes: `/` (Home), `/cv-builder` (CV Builder), `/job-search` (Job Search)
+- [ ] Task: Create persistent sidebar navigation component
+    - [ ] Build sidebar with navigation links: Home, CV Builder, Job Search, Settings
+    - [ ] Implement active route highlighting based on current route
+    - [ ] Style sidebar with Tailwind CSS v4
+- [ ] Task: Create placeholder page components for each route
+    - [ ] Create HomePage, CVBuilderPage, JobSearchPage placeholder components
+    - [ ] Each should display the route name as a heading
+- [ ] Task: Implement responsive sidebar (collapsible on mobile)
+    - [ ] Sidebar collapses to hamburger toggle on viewports < 768px
+    - [ ] Add slide animation with backdrop overlay for expanded state
+    - [ ] Ensure smooth transitions
+- [ ] Task: Write first Vitest test (sidebar renders correctly)
+    - [ ] Create test file for sidebar component
+    - [ ] Test that all navigation links render
+    - [ ] Test active route highlighting
+    - [ ] Verify test suite runs with `pnpm test`
+- [ ] Task: Conductor - User Manual Verification 'Phase C: Navigation & Sidebar' (Protocol in workflow.md)
+
+## Phase D: Settings Modal Shell
+
+- [ ] Task: Add Settings button to sidebar
+    - [ ] Add Settings navigation item in sidebar
+    - [ ] Wire it to open a modal (separate from routing)
+- [ ] Task: Create dismissable modal component
+    - [ ] Build reusable modal component with backdrop overlay
+    - [ ] Add close button (X) and click-outside-to-dismiss behavior
+    - [ ] Add keyboard Escape key to dismiss
+    - [ ] Style with Tailwind CSS v4
+- [ ] Task: Conductor - User Manual Verification 'Phase D: Settings Modal Shell' (Protocol in workflow.md)
+
+## Phase E: Testing & Verification
+
+- [ ] Task: Write comprehensive component tests
+    - [ ] Test all navigation components
+    - [ ] Test modal open/close behavior
+    - [ ] Test responsive sidebar collapse/expand
+    - [ ] Verify >80% coverage for new components
+- [ ] Task: Write E2E test for app launch
+    - [ ] Configure Playwright with Electron launcher
+    - [ ] Test: App launches and window appears with correct title
+    - [ ] Test: Sidebar navigation items are visible
+- [ ] Task: Verify full test suite passes
+    - [ ] Run `pnpm test` — all unit/integration tests pass
+    - [ ] Run E2E tests — verify app launch and basic navigation
+    - [ ] Check coverage thresholds are met
+- [ ] Task: Conductor - User Manual Verification 'Phase E: Testing & Verification' (Protocol in workflow.md)
