@@ -24,6 +24,11 @@ describe('Sidebar', () => {
     expect(screen.getByText('Careers Builder')).toBeDefined();
   });
 
+  it('renders the Settings button', () => {
+    renderWithRouter();
+    expect(screen.getByText('Settings')).toBeDefined();
+  });
+
   it('highlights the active route', () => {
     renderWithRouter('/cv-builder');
     const cvLink = screen.getByText('CV Builder').closest('a');

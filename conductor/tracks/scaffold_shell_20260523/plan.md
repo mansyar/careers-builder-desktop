@@ -74,10 +74,10 @@
 
 ## Phase D: Settings Modal Shell
 
-- [ ] Task: Add Settings button to sidebar
+- [~] Task: Add Settings button to sidebar
   - [ ] Add Settings navigation item in sidebar
   - [ ] Wire it to open a modal (separate from routing)
-- [ ] Task: Create dismissable modal component
+- [~] Task: Create dismissable modal component
   - [ ] Build reusable modal component with backdrop overlay
   - [ ] Add close button (X) and click-outside-to-dismiss behavior
   - [ ] Add keyboard Escape key to dismiss
