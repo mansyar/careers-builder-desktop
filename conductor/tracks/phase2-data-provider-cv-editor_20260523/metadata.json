@@ -1,0 +1,8 @@
+{
+  "track_id": "phase2-data-provider-cv-editor_20260523",
+  "type": "feature",
+  "status": "new",
+  "created_at": "2026-05-23T21:14:00Z",
+  "updated_at": "2026-05-23T21:14:00Z",
+  "description": "Implement Phase 2: Database + Provider Setup + Manual CV Editor — build the SQLite persistence layer, AI provider configuration (wizard + settings modal), encryption module, and 6-section manual CV editor form"
+}
