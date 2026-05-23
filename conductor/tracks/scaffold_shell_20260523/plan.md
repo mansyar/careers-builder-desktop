@@ -72,7 +72,7 @@
   - [x] Verify test suite runs with `pnpm test`
 - [x] Task: Conductor - User Manual Verification 'Phase C: Navigation & Sidebar' (Protocol in workflow.md) [990a3a5]
 
-## Phase D: Settings Modal Shell
+## Phase D: Settings Modal Shell [checkpoint: db4b65f]
 
 - [x] Task: Add Settings button to sidebar [273c086]
   - [x] Add Settings navigation item in sidebar
@@ -82,7 +82,7 @@
   - [x] Add close button (X) and click-outside-to-dismiss behavior
   - [x] Add keyboard Escape key to dismiss
   - [x] Style with Tailwind CSS v4
-- [~] Task: Conductor - User Manual Verification 'Phase D: Settings Modal Shell' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase D: Settings Modal Shell' (Protocol in workflow.md) [db4b65f]
 
 ## Phase E: Testing & Verification
 
