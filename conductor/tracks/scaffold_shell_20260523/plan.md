@@ -30,23 +30,23 @@
 
 ## Phase B: Electron Shell & Security
 
-- [ ] Task: Create main process BrowserWindow
-  - [ ] Configure default size 1200×800, min size 900×600
-  - [ ] Set window title to "Careers Builder"
-  - [ ] Wire up dev load URL (Vite dev server) vs production file load
-- [ ] Task: Create preload script with empty contextBridge shell
-  - [ ] Set up `contextBridge.exposeInMainWorld('electronAPI', {})`
-  - [ ] Prepare typed window.electronAPI declarations
-- [ ] Task: Mount React app in renderer with Tailwind base styles
-  - [ ] Create renderer entry point (src/renderer/index.tsx)
-  - [ ] Mount React app into DOM
-  - [ ] Apply Tailwind preflight/base styles
-- [ ] Task: Enable Electron security best practices
-  - [ ] Enable contextIsolation
-  - [ ] Disable nodeIntegration
-  - [ ] Enable sandbox mode
-  - [ ] Set strict Content Security Policy header
-- [ ] Task: Conductor - User Manual Verification 'Phase B: Electron Shell & Security' (Protocol in workflow.md)
+- [x] Task: Create main process BrowserWindow [a0edf1d]
+  - [x] Configure default size 1200×800, min size 900×600
+  - [x] Set window title to "Careers Builder"
+  - [x] Wire up dev load URL (Vite dev server) vs production file load
+- [x] Task: Create preload script with empty contextBridge shell [a0edf1d]
+  - [x] Set up `contextBridge.exposeInMainWorld('electronAPI', {})`
+  - [x] Prepare typed window.electronAPI declarations
+- [x] Task: Mount React app in renderer with Tailwind base styles [a0edf1d]
+  - [x] Create renderer entry point (src/renderer/index.tsx)
+  - [x] Mount React app into DOM
+  - [x] Apply Tailwind preflight/base styles
+- [x] Task: Enable Electron security best practices [a0edf1d]
+  - [x] Enable contextIsolation
+  - [x] Disable nodeIntegration
+  - [x] Enable sandbox mode
+  - [x] Set strict Content Security Policy header
+- [~] Task: Conductor - User Manual Verification 'Phase B: Electron Shell & Security' (Protocol in workflow.md)
 
 ## Phase C: Navigation & Sidebar
 
