@@ -15,6 +15,9 @@ export default defineConfig({
       reporter: ['text', 'lcov', 'html'],
       include: ['src/renderer/src/**/*.{ts,tsx}'],
       exclude: ['src/renderer/src/**/*.d.ts', 'src/renderer/src/**/env.d.ts'],
+      thresholds: {
+        lines: 80,
+      },
     },
   },
   resolve: {

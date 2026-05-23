@@ -25,7 +25,9 @@
     "dist:mac": "electron-builder --mac",
     "dist:linux": "electron-builder --linux",
     "prepare": "husky",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "check:lines": "node scripts/check-file-lines.mjs",
+    "check:full": "npm run typecheck && npm run test:coverage && npm run test:e2e"
   },
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.1",

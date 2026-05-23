@@ -1,1 +1,2 @@
+pnpm check:lines
 pnpm lint-staged
