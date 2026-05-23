@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 
@@ -39,5 +39,14 @@ describe('Sidebar', () => {
     renderWithRouter('/');
     const cvLink = screen.getByText('Job Search').closest('a');
     expect(cvLink?.className).not.toContain('bg-blue-50');
+  });
+
+  it('toggles mobile sidebar via hamburger button', () => {
+    renderWithRouter();
+    const hamburger = screen.getByLabelText('Open sidebar');
+    fireEvent.click(hamburger);
+    expect(screen.getByLabelText('Close sidebar')).toBeDefined();
+    fireEvent.click(screen.getByLabelText('Close sidebar'));
+    expect(screen.getByLabelText('Open sidebar')).toBeDefined();
   });
 });
