@@ -1,8 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import HomePage from '../pages/HomePage';
-import CVBuilderPage from '../pages/CVBuilderPage';
-import JobSearchPage from '../pages/JobSearchPage';
+import { HomePage } from '../pages/HomePage';
+import { CVBuilderPage } from '../pages/CVBuilderPage';
+import { JobSearchPage } from '../pages/JobSearchPage';
 
 describe('HomePage', () => {
   it('renders the welcome heading', () => {

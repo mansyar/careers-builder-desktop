@@ -38,8 +38,8 @@ test('window has correct default size', async () => {
 });
 
 test('sidebar navigation items are visible', async () => {
-  // Wait for React content to render
-  await page.waitForTimeout(2000);
+  // Wait for sidebar content to render
+  await page.waitForSelector('text=Careers Builder', { timeout: 10000 });
   const bodyText = await page.locator('body').innerText();
   expect(bodyText).toContain('Careers Builder');
   expect(bodyText).toContain('Home');

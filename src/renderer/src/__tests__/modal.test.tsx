@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
-import Modal from '../components/Modal';
+import { Modal } from '../components/Modal';
 
 describe('Modal', () => {
   it('renders nothing when closed', () => {
@@ -51,7 +51,9 @@ describe('Modal', () => {
         <p>Content</p>
       </Modal>
     );
-    fireEvent.click(screen.getByText('Test').closest('div[class*="fixed"]')!);
+    const overlay = screen.getByText('Test').closest('div[class*="fixed"]');
+    expect(overlay).not.toBeNull();
+    fireEvent.click(overlay!);
     expect(onClose).toHaveBeenCalledTimes(1);
   });
 });

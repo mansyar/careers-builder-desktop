@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import Modal from './Modal';
+import { Modal } from './Modal';
 
 const navItems = [
   { to: '/', label: 'Home' },
@@ -8,7 +8,7 @@ const navItems = [
   { to: '/job-search', label: 'Job Search' },
 ];
 
-function Sidebar(): JSX.Element {
+export function Sidebar(): React.JSX.Element {
   const [isOpen, setIsOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
@@ -111,5 +111,3 @@ function Sidebar(): JSX.Element {
     </>
   );
 }
-
-export default Sidebar;
